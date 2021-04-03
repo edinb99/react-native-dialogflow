@@ -53,7 +53,7 @@ export class Dialogflow_V2 {
         // add context name path: projects/<Project ID>/agent/sessions/<Session ID>/contexts/<Context ID>
         // https://dialogflow.com/docs/reference/api-v2/rest/v2beta1/projects.agent.sessions.contexts#Context
         if (!context.name.startsWith("projects/")) {
-            context.name = "projects/" + this.projectId + "/locations" + this.regionId
+            context.name = "projects/" + this.projectId + "/locations/" + this.regionId
                 + "/agent/sessions/" + this.sessionId + "/contexts/" + context.name;
         }
 
@@ -89,7 +89,7 @@ export class Dialogflow_V2 {
         this.contexts = null;
         this.entities = null;
 
-        fetch(DEFAULT_START_URL + this.regionId + DEFAULT_BASE_URL + this.projectId + "/locations" + this.regionId
+        fetch(DEFAULT_START_URL + this.regionId + DEFAULT_BASE_URL + this.projectId + "/locations/" + this.regionId
             + "/agent/sessions/" + this.sessionId + ":detectIntent", {
             method: "POST",
             headers: {
@@ -124,7 +124,7 @@ export class Dialogflow_V2 {
         this.contexts = null;
         this.entities = null;
 
-        fetch(DEFAULT_START_URL + this.regionId + DEFAULT_BASE_URL + this.projectId + "/locations" + this.regionId
+        fetch(DEFAULT_START_URL + this.regionId + DEFAULT_BASE_URL + this.projectId + "/locations/" + this.regionId
             + "/agent/sessions/" + this.sessionId + ":detectIntent", {
             method: "POST",
             headers: {
