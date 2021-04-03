@@ -2,7 +2,9 @@
 
 import googleAuth from './googleAuth/GoogleAuth';
 import ResetContextsRequest from './ResetContextsRequest';
-export const DEFAULT_BASE_URL = "https://dialogflow.googleapis.com/v2beta1/projects/";
+
+export const DEFAULT_START_URL = "https://"
+export const DEFAULT_BASE_URL = "-dialogflow.googleapis.com/v2beta1/projects/";
 
 export class Dialogflow_V2 {
 
@@ -51,7 +53,8 @@ export class Dialogflow_V2 {
         // add context name path: projects/<Project ID>/agent/sessions/<Session ID>/contexts/<Context ID>
         // https://dialogflow.com/docs/reference/api-v2/rest/v2beta1/projects.agent.sessions.contexts#Context
         if (!context.name.startsWith("projects/")) {
-            context.name = "projects/" + this.projectId + "/agent/sessions/" + this.sessionId + "/contexts/" + context.name;
+            context.name = "projects/" + this.projectId + "/locations" + this.regionId
+                + "/agent/sessions/" + this.sessionId + "/contexts/" + context.name;
         }
 
         return context;
@@ -86,7 +89,8 @@ export class Dialogflow_V2 {
         this.contexts = null;
         this.entities = null;
 
-        fetch(DEFAULT_BASE_URL + this.projectId + "/agent/sessions/" + this.sessionId + ":detectIntent", {
+        fetch(DEFAULT_START_URL + this.regionId + DEFAULT_BASE_URL + this.projectId + "/locations" + this.regionId
+            + "/agent/sessions/" + this.sessionId + ":detectIntent", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -120,7 +124,8 @@ export class Dialogflow_V2 {
         this.contexts = null;
         this.entities = null;
 
-        fetch(DEFAULT_BASE_URL + this.projectId + "/agent/sessions/" + this.sessionId + ":detectIntent", {
+        fetch(DEFAULT_START_URL + this.regionId + DEFAULT_BASE_URL + this.projectId + "/locations" + this.regionId
+            + "/agent/sessions/" + this.sessionId + ":detectIntent", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -191,5 +196,15 @@ export class Dialogflow_V2 {
     LANG_RUSSIAN = "ru";
     LANG_SPANISH = "es";
     LANG_UKRAINIAN = "uk";
+
+    /* 
+    Region IDs according to 
+    https://cloud.google.com/dialogflow/es/docs/how/region
+    */
+    AMERICA = "us";
+    EUROPE_BELGIUM = "europe-west1";
+    EUROPE_LONDON = "europe-west2";
+    ASIA_PACIFIC_SYDNEY = "australia-southeast1";
+    ASIA_PACIFIC_TOKYO = "asia-northeast1";
 }
 
